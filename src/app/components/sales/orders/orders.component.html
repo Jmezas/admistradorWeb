@@ -1,0 +1,25 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Lista de Venta</h5>
+                </div>
+                <div class="card-body">
+                    <div class="custom-datatable">
+                        <input type='text' class="filter-ngx form-control" placeholder='Search...' (keyup)='updateFilter($event)' />
+                        <ngx-datatable class="bootstrap" [rows]="order" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="10">
+                            <ngx-datatable-column prop="orden"></ngx-datatable-column>
+                            <ngx-datatable-column name="cliente"></ngx-datatable-column>
+                            <ngx-datatable-column prop="fecha"></ngx-datatable-column>
+                            <ngx-datatable-column prop="Plataforma"></ngx-datatable-column>
+                            <ngx-datatable-column prop="status"></ngx-datatable-column> 
+                            <ngx-datatable-column name="Total"></ngx-datatable-column>
+                        </ngx-datatable>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->

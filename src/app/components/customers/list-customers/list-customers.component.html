@@ -1,0 +1,116 @@
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header">
+            <h5>cliente Details</h5>
+        </div>
+        <div class="card-body">
+            <div class="btn-popup pull-right">
+                <button class="btn btn-secondary" data-toggle="modal" data-original-title="test" data-target="#exampleModal" (click)="openCreate(content)"> Nuevo</button>
+            </div>
+            <div class="card-body">
+                <div class="custom-datatable">
+                    <input type='text' class="filter-ngx form-control" placeholder='Search...' (keyup)='updateFilter($event)' />
+
+                    <ngx-datatable [rows]="customer" class="bootstrap" [loadingIndicator]="loadingIndicator" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [columns]="columns" [reorderable]="reorderable">
+
+                        <ngx-datatable-column *ngFor="let column of columns; let i = index;" name="{{column.name}}" prop="{{column.prop}}">
+
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Actions" sortable="false" prop="_id">
+                            <ng-template let-row="data" let-value="value" ngx-datatable-cell-template>
+                                <button md-icon-button (click)="update(content,value)" class="btn btn-warning btn-sm" data-toggle="modal" data-original-title="test" data-target="#exampleModal">
+                              <i class="fa fa-edit"></i>
+                            </button>
+                                <button md-icon-button (click)="delete(value)" class="btn btn-danger btn-sm" data-toggle="modal" data-original-title="test" data-target="#exampleModal">
+                                <i class="fa fa-trash"></i>
+                              </button>
+                            </ng-template>
+                        </ngx-datatable-column>
+                    </ngx-datatable>
+                </div>
+            </div>
+            <ng-template #content let-modal>
+                <div class="modal-header">
+                    <h5 class="modal-title f-w-600" id="exampleModalLabel">Editar Usuario</h5>
+                    <button #close type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="needs-validation" [formGroup]="usersForm">
+                        <div class="form-row">
+                            <input type="hidden" id="data" formControlName="id" #id>
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+
+                                <div class="form-group">
+                                    <label for="validationCustom01" class="mb-1">Rol :</label>
+                                    <select class="form-control" formControlName="role">
+                                        <option value="" selected>--selecione--</option>
+                                        <option value="ADMIN">ADMIN</option>
+                                        <option value="USER">USER</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label for="validationCustom02" class="mb-1">Nro Documento :</label>
+                                    <input class="form-control" type="text" formControlName="document">
+                                    <span *ngIf="usersForm.get('document').hasError('required')">
+                                        (El mail no puede quedar vacío)
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <label for="validationCustom02" class="mb-1">Nombre completo:</label>
+                                    <input class="form-control" type="text" formControlName="name">
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <label for="validationCustom02" class="mb-1">email :</label>
+                                    <input class="form-control" type="text" formControlName="email">
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <label for="validationCustom02" class="mb-1">telefono :</label>
+                                    <input class="form-control" type="text" formControlName="phone">
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <label for="validationCustom02" class="mb-1">direccion :</label>
+                                    <input class="form-control" type="text" formControlName="address">
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <label for="validationCustom02" class="mb-1">usuario :</label>
+                                    <input class="form-control" type="text" formControlName="user">
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12" [hidden]="id.value">
+                                <div class="form-group">
+                                    <label for="validationCustom02" class="mb-1">contrasenia :</label>
+                                    <input class="form-control" type="password" formControlName="password">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" [hidden]="!id.value" class="btn btn-primary" (click)="updateUser(id)"><i class="fa fa-save"></i> update </button>
+
+
+                    <button type="button" [hidden]="id.value" class="btn btn-primary" (click)="createUser()"><i class="fa fa-save"></i> create </button>
+
+
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal" (click)="modal.dismiss('Cross click')"><i class="fa fa-close"></i></button>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>
